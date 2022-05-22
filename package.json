@@ -1,0 +1,45 @@
+{
+  "name": "iterator-matcher",
+  "version": "1.0.0",
+  "description": "Easily found out if an ES6 Iterator match what you expected",
+  "main": "./dist/IteratorMatcher.js",
+  "types": "./dist/IteratorMatcher.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "test": "mocha --parallel",
+    "coverage": "c8 -r html npm test",
+    "lint": "cross-env eslint src/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fraxken/IteratorMatcher.git"
+  },
+  "keywords": [
+    "iterator",
+    "matcher",
+    "match"
+  ],
+  "author": "GENTILHOMME Thomas <gentilhomme.thomas@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/fraxken/IteratorMatcher/issues"
+  },
+  "homepage": "https://github.com/fraxken/IteratorMatcher#readme",
+  "devDependencies": {
+    "@nodesecure/eslint-config": "^1.4.0",
+    "@types/chai": "^4.3.1",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^17.0.35",
+    "c8": "^7.11.3",
+    "chai": "^4.3.6",
+    "eslint": "^8.16.0",
+    "mocha": "^10.0.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.6.4"
+  }
+}
