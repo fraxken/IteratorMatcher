@@ -99,7 +99,9 @@ export class IteratorMatcher<T> {
       if (stopOnFirstMatch && valueSatisfiesExpectation) {
         return { isMatching: true, elapsedSteps };
       }
-      matchingValue++;
+      if (valueSatisfiesExpectation) {
+        matchingValue++;
+      }
 
       if (this.#expectedValues.length === index) {
         break;
@@ -107,7 +109,7 @@ export class IteratorMatcher<T> {
     }
 
     return {
-      isMatching: allowNoMatchingValues && matchingValue > 0,
+      isMatching: allowNoMatchingValues ? true : matchingValue > 0,
       elapsedSteps
     };
   }
