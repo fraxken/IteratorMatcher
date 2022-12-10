@@ -3,12 +3,19 @@
   "version": "1.0.1",
   "description": "Easily found out if an ES6 Iterator match what you expected",
   "main": "./dist/IteratorMatcher.js",
+  "module": "./dist/IteratorMatcher.mjs",
   "types": "./dist/IteratorMatcher.d.ts",
-  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/IteratorMatcher.js",
+      "import": "./dist/IteratorMatcher.mjs",
+      "types": "./dist/IteratorMatcher.d.ts"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/IteratorMatcher.ts --format cjs,esm --dts --clean",
     "prepublishOnly": "npm run build",
-    "test": "mocha --parallel",
+    "test": "npm run build && mocha --parallel",
     "coverage": "c8 -r html npm test",
     "lint": "cross-env eslint src/*.ts"
   },
@@ -40,6 +47,7 @@
     "eslint": "^8.29.0",
     "mocha": "^10.1.0",
     "ts-node": "^10.9.1",
+    "tsup": "^6.5.0",
     "typescript": "^4.9.4"
   }
 }

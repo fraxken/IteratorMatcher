@@ -2,7 +2,7 @@
 import { expect } from "chai";
 
 // Import Internal Dependencies
-import { IteratorMatcher } from "../src/IteratorMatcher.js";
+import { IteratorMatcher } from "../dist/IteratorMatcher.js";
 
 describe("IteratorMatcher", () => {
   it("should throw an Error if no expected values has been added to the IteratorMatcher instance", () => {
