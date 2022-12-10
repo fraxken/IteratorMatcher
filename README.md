@@ -112,11 +112,6 @@ export type IteratorMatcherExecutorResult = {
 ```
 </details>
 
-## Roadmap
-
-- Add `preserveExpectationOrder` option to execute method.
-- Add `minOccurence` to expect method.
-
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
