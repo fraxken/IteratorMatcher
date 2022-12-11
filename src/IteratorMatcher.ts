@@ -1,3 +1,6 @@
+// Import Internal Dependencies
+import { UnorderedExpectedValues } from "./UnorderedExpectedValues.js";
+
 export type IteratorMatcherExpected<T> = {
   predicate: (currentIteratedValue: T) => boolean;
 } & Required<IteratorMatcherExpectOptions>;
@@ -17,7 +20,7 @@ export interface IteratorMatcherExpectOptions {
   occurence?: number;
 }
 
-export interface IteratorMatcherExecutorOptions {
+interface DefaultIteratorMatcherExecutorOptions {
   /**
    * Stop the executor on the first matching value.
    *
@@ -32,6 +35,27 @@ export interface IteratorMatcherExecutorOptions {
    */
   allowNoMatchingValues?: boolean;
 }
+
+interface DefaultUnpreservedIteratorMatcherExecutorOptions extends DefaultIteratorMatcherExecutorOptions {
+  /**
+   * Authorize unexpected value to appear
+   *
+   * @default false
+   */
+  allowUnexpectedValue?: boolean;
+}
+
+export type IteratorMatcherExecutorOptions = {
+  /**
+   * When enabled it preserve the order of expectation
+   */
+  preserveExpectationOrder?: true;
+} & DefaultIteratorMatcherExecutorOptions | {
+  /**
+   * When disabled it will iterate all expectations and try to match them all with no order.
+   */
+  preserveExpectationOrder?: false;
+} & DefaultUnpreservedIteratorMatcherExecutorOptions;
 
 export type IteratorMatcherExecutorResult = {
   isMatching: boolean;
@@ -65,19 +89,45 @@ export class IteratorMatcher<T> {
     return this;
   }
 
-  execute(
-    iterator: IterableIterator<T>,
-    options: IteratorMatcherExecutorOptions = Object.create(null)
+  #executeWithoutPreservedOrder(
+    iterator: Iterable<T>,
+    options: Required<DefaultUnpreservedIteratorMatcherExecutorOptions>
   ): IteratorMatcherExecutorResult {
-    if (this.#expectedValues.length === 0) {
-      throw new Error("Unable to execute with no expected values");
-    }
-    const { stopOnFirstMatch = false, allowNoMatchingValues = true } = options;
+    let elapsedSteps = 0;
+    const expectedValues = new UnorderedExpectedValues<T>(this.#expectedValues);
 
+    for (const currentIteratedValue of iterator) {
+      const valueSatisfiesExpectation = expectedValues.satisfies(currentIteratedValue);
+
+      elapsedSteps++;
+      if (valueSatisfiesExpectation && options.stopOnFirstMatch) {
+        return { isMatching: true, elapsedSteps };
+      }
+      if (!valueSatisfiesExpectation && !options.allowUnexpectedValue) {
+        return { isMatching: false, elapsedSteps };
+      }
+    }
+    const hasNoMatchingValues = options.allowNoMatchingValues && expectedValues.matchingValue === 0;
+
+    if (!hasNoMatchingValues && expectedValues.hasRemainingMandatoryValues()) {
+      return { isMatching: false, elapsedSteps };
+    }
+
+    return {
+      isMatching: hasNoMatchingValues ? true : expectedValues.isMatching(),
+      elapsedSteps
+    };
+  }
+
+  #executeWithPreservedOrder(
+    iterator: Iterable<T>,
+    options: Required<DefaultIteratorMatcherExecutorOptions>
+  ): IteratorMatcherExecutorResult {
     let index = 0;
     let elapsedSteps = 0;
     let currentOccurenceCount = 1;
     let matchingValue = 0;
+
     for (const currentIteratedValue of iterator) {
       const expectation = this.#expectedValues[index];
       if (currentOccurenceCount <= 1) {
@@ -93,11 +143,11 @@ export class IteratorMatcher<T> {
       }
       elapsedSteps++;
 
+      if (valueSatisfiesExpectation && options.stopOnFirstMatch) {
+        return { isMatching: true, elapsedSteps };
+      }
       if (!valueSatisfiesExpectation && expectation.mandatory) {
         return { isMatching: false, elapsedSteps };
-      }
-      if (stopOnFirstMatch && valueSatisfiesExpectation) {
-        return { isMatching: true, elapsedSteps };
       }
       if (valueSatisfiesExpectation) {
         matchingValue++;
@@ -109,8 +159,34 @@ export class IteratorMatcher<T> {
     }
 
     return {
-      isMatching: allowNoMatchingValues ? true : matchingValue > 0,
+      isMatching: options.allowNoMatchingValues && matchingValue === 0 ? true : matchingValue > 0,
       elapsedSteps
     };
+  }
+
+  execute(
+    iterator: Iterable<T>,
+    options: IteratorMatcherExecutorOptions = Object.create(null)
+  ): IteratorMatcherExecutorResult {
+    if (this.#expectedValues.length === 0) {
+      throw new Error("Unable to execute with no expected values");
+    }
+    const {
+      stopOnFirstMatch = false,
+      allowNoMatchingValues = true
+    } = options;
+
+    if (options?.preserveExpectationOrder ?? true) {
+      return this.#executeWithPreservedOrder(iterator, {
+        stopOnFirstMatch,
+        allowNoMatchingValues
+      });
+    }
+
+    return this.#executeWithoutPreservedOrder(iterator, {
+      stopOnFirstMatch,
+      allowNoMatchingValues,
+      allowUnexpectedValue: (options as DefaultUnpreservedIteratorMatcherExecutorOptions)?.allowUnexpectedValue ?? false
+    });
   }
 }

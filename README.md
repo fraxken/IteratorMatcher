@@ -10,7 +10,6 @@ Easily found out if an ES6 Iterator match what you expected
 ## Limitations
 - No built-in mechanism to match on non-primitive values.
 
-
 ## Requirements
 - [Node.js](https://nodejs.org/en/) v16 or higher
 
@@ -86,7 +85,7 @@ new IteratorMatcher()
 
 The options payload is described by the following TypeScript interface:
 ```ts
-export interface IteratorMatcherExecutorOptions {
+interface DefaultIteratorMatcherExecutorOptions {
   /**
    * Stop the executor on the first matching value.
    *
@@ -101,6 +100,27 @@ export interface IteratorMatcherExecutorOptions {
    */
   allowNoMatchingValues?: boolean;
 }
+
+interface DefaultUnpreservedIteratorMatcherExecutorOptions extends DefaultIteratorMatcherExecutorOptions {
+  /**
+   * Authorize unexpected value to appear
+   *
+   * @default false
+   */
+  allowUnexpectedValue?: boolean;
+}
+
+export type IteratorMatcherExecutorOptions = {
+  /**
+   * When enabled it preserve the order of expectation
+   */
+  preserveExpectationOrder?: true;
+} & DefaultIteratorMatcherExecutorOptions | {
+  /**
+   * When disabled it will iterate all expectations and try to match them all with no order.
+   */
+  preserveExpectationOrder?: false;
+} & DefaultUnpreservedIteratorMatcherExecutorOptions;
 ```
 
 The response is described by the following TypeScript type:
