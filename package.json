@@ -1,6 +1,6 @@
 {
   "name": "iterator-matcher",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Easily found out if an ES6 Iterator match what you expected",
   "main": "./dist/IteratorMatcher.js",
   "module": "./dist/IteratorMatcher.mjs",
