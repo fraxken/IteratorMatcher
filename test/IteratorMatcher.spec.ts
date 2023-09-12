@@ -1,5 +1,6 @@
-// Import Third-party Dependencies
-import { expect } from "chai";
+// Import Node.js Dependencies
+import { describe, it } from "node:test";
+import assert from "node:assert";
 
 // Import Internal Dependencies
 import { IteratorMatcher } from "../dist/IteratorMatcher.js";
@@ -10,8 +11,13 @@ describe("IteratorMatcher (general tests)", () => {
       yield "foo";
     }
 
-    expect(() => new IteratorMatcher().execute(dummyGen()))
-      .to.throw("Unable to execute with no expected values");
+    assert.throws(
+      () => new IteratorMatcher().execute(dummyGen()),
+      {
+        name: "Error",
+        message: "Unable to execute with no expected values"
+      }
+    );
   });
 
   it("should accept an Array of values as expectation", () => {
@@ -24,7 +30,7 @@ describe("IteratorMatcher (general tests)", () => {
       .expect(["trace", "error"], { occurence: 2 })
       .execute(dummyGen());
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 2
     });
@@ -40,7 +46,7 @@ describe("IteratorMatcher (general tests)", () => {
       .expect(new Set(["trace", "error"]), { occurence: 2 })
       .execute(dummyGen());
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 2
     });
@@ -59,7 +65,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect("bar")
       .execute(dummyGen());
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 2
     });
@@ -78,7 +84,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect(5)
       .execute(dummyGen());
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 3
     });
@@ -95,7 +101,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect("foo", { occurence: 3 })
       .execute(dummyGen());
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 3
     });
@@ -110,7 +116,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect("bar", { mandatory: false })
       .execute(dummyGen());
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 1
     });
@@ -126,7 +132,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect("bar", { mandatory: false })
       .execute(dummyGen(), { allowNoMatchingValues: false });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 1
     });
@@ -137,7 +143,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect("foo")
       .execute([]);
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 0
     });
@@ -148,7 +154,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect("foo")
       .execute([], { allowNoMatchingValues: false });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 0
     });
@@ -165,7 +171,7 @@ describe("IteratorMatcher execution (expectation order preserved)", () => {
       .expect(10)
       .execute(dummyGen(), { stopOnFirstMatch: true });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 1
     });
@@ -184,7 +190,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
       .expect("bar")
       .execute(dummyGen(), { preserveExpectationOrder: false });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 2
     });
@@ -205,7 +211,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         allowUnexpectedValue: true
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 3
     });
@@ -226,7 +232,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         allowUnexpectedValue: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 2
     });
@@ -249,7 +255,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         allowUnexpectedValue: true
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 3
     });
@@ -268,7 +274,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         preserveExpectationOrder: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 1
     });
@@ -287,7 +293,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         preserveExpectationOrder: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 1
     });
@@ -307,7 +313,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
       .expect("bar", { occurence: 2 })
       .execute(dummyGen(), { preserveExpectationOrder: false });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 5
     });
@@ -325,7 +331,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         allowUnexpectedValue: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 1
     });
@@ -343,7 +349,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         allowUnexpectedValue: true
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 1
     });
@@ -361,7 +367,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         preserveExpectationOrder: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: false,
       elapsedSteps: 1
     });
@@ -380,7 +386,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         preserveExpectationOrder: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 2
     });
@@ -400,7 +406,7 @@ describe("IteratorMatcher execution (expectation order unpreserved)", () => {
         preserveExpectationOrder: false
       });
 
-    expect(result).to.deep.equal({
+    assert.deepEqual(result, {
       isMatching: true,
       elapsedSteps: 3
     });

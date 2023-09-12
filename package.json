@@ -15,8 +15,8 @@
   "scripts": {
     "build": "tsup src/IteratorMatcher.ts --format cjs,esm --dts --clean",
     "prepublishOnly": "npm run build",
-    "test": "npm run build && mocha --parallel",
-    "coverage": "c8 -r html npm test",
+    "test-only": "glob -c \"tsx --test\" \"./test/**/*.spec.ts\"",
+    "test": "c8 --all -r html npm run test-only",
     "lint": "cross-env eslint src/*.ts"
   },
   "repository": {
@@ -38,16 +38,13 @@
   },
   "homepage": "https://github.com/fraxken/IteratorMatcher#readme",
   "devDependencies": {
-    "@nodesecure/eslint-config": "^1.5.0",
-    "@types/chai": "^4.3.4",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^18.11.13",
-    "c8": "^7.12.0",
-    "chai": "^4.3.7",
-    "eslint": "^8.29.0",
-    "mocha": "^10.1.0",
-    "ts-node": "^10.9.1",
-    "tsup": "^6.5.0",
+    "@nodesecure/eslint-config": "^1.8.0",
+    "@types/node": "^20.6.0",
+    "c8": "^8.0.1",
+    "eslint": "^8.49.0",
+    "glob": "^10.3.4",
+    "tsup": "^7.2.0",
+    "tsx": "^3.12.8",
     "typescript": "^4.9.4"
   }
 }
