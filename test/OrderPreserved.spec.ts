@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert";
 
 // Import Internal Dependencies
-import { IteratorMatcher } from "../dist/IteratorMatcher.js";
+import { IteratorMatcher } from "../src/IteratorMatcher.js";
 
 describe("IteratorMatcher (expect OrderPreserved)", () => {
   it("should match the two expected values returned by the iterator", () => {

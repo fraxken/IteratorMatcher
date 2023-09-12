@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import assert from "node:assert";
 
 // Import Internal Dependencies
-import { IteratorMatcher } from "../dist/IteratorMatcher.js";
+import { IteratorMatcher } from "../src/IteratorMatcher.js";
 
 describe("IteratorMatcher", () => {
   it("should throw an Error if no expected values has been added to the IteratorMatcher instance", () => {

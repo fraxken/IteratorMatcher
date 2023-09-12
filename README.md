@@ -134,6 +134,35 @@ export type IteratorMatcherExecutorResult = {
 ```
 </details>
 
+### EventListener
+
+The IteratorMatcher expose an additional `EventListener` helper class useful for testing purpose with Node.js EventEmitter.
+
+Here a real world example extracted from the UT one of my package:
+
+```ts
+import assert from "node:assert";
+import { test } from "node:test";
+
+import { TimeStore } from "@openally/timestore";
+import { IteratorMatcher, EventListener } from "iterator-matcher";
+
+test("Example with TimeStore, IteratorMatcher and EventListener", () => {
+  const store = new TimeStore({ ttl })
+  .add("foo").add("bar");
+  const eeListener = new EventListener(store, TimeStore.Expired);
+
+  // Doing some work with store
+
+  assert.equal(eeListener.listenerCount, 2);
+  const { isMatching } = new IteratorMatcher()
+    .expect("foo")
+    .expect("bar")
+    .execute(eeListener.names(), { allowNoMatchingValues: false });
+  assert.ok(isMatching, true);
+});
+```
+
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
