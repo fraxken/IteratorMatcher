@@ -39,11 +39,12 @@ const result = new IteratorMatcher()
   .expect(["trace", "error"], { occurence: 2 })
   .execute(dummyGen());
 
-assert.strictEqual(result.isMatching, true);
-assert.strictEqual(result.elapsedSteps, 3);
+assert.ok(result.isMatching, true);
+assert.equal(result.elapsedSteps, 3);
 ```
 
-> Note: you can re-use the same IteratorMatcher multiple time.
+> [!NOTE]
+> You can re-use the same IteratorMatcher multiple time.
 
 ## API
 
@@ -101,7 +102,8 @@ interface DefaultIteratorMatcherExecutorOptions {
   allowNoMatchingValues?: boolean;
 }
 
-interface DefaultUnpreservedIteratorMatcherExecutorOptions extends DefaultIteratorMatcherExecutorOptions {
+interface DefaultUnpreservedIteratorMatcherExecutorOptions
+  extends DefaultIteratorMatcherExecutorOptions {
   /**
    * Authorize unexpected value to appear
    *
