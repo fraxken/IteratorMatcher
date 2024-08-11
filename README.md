@@ -9,7 +9,7 @@ Easily found out if an ES6 Iterator match what you expected
 - No built-in mechanism to match on non-primitive values.
 
 ## Requirements
-- [Node.js](https://nodejs.org/en/) v16 or higher
+- [Node.js](https://nodejs.org/en/) v20 or higher
 
 ## Getting Started
 
