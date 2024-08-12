@@ -41,8 +41,8 @@
     "@nodesecure/eslint-config": "^1.8.0",
     "@types/node": "^22.2.0",
     "c8": "^10.1.2",
-    "eslint": "^8.49.0",
-    "glob": "^10.3.4",
+    "eslint": "^9.9.0",
+    "glob": "^11.0.0",
     "tsup": "^8.2.4",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4"
