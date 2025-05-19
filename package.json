@@ -13,8 +13,7 @@
   "scripts": {
     "build": "tsup src/IteratorMatcher.ts --format cjs,esm --dts --clean",
     "prepublishOnly": "npm run build",
-    "test-only": "tsx --test test/**/*.spec.ts",
-    "test": "c8 --all --src ./src -r html npm run test-only",
+    "test": "tsx --experimental-test-coverage --test test/**/*.spec.ts",
     "lint": "eslint src test"
   },
   "repository": {
@@ -39,8 +38,6 @@
     "@openally/config.eslint": "^2.1.0",
     "@openally/config.typescript": "^1.0.3",
     "@types/node": "^22.2.0",
-    "c8": "^10.1.2",
-    "eslint": "^9.9.0",
     "tsup": "^8.2.4",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4"
