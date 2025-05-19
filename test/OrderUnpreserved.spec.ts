@@ -5,7 +5,6 @@ import assert from "node:assert";
 // Import Internal Dependencies
 import { IteratorMatcher } from "../src/IteratorMatcher.js";
 
-
 describe("IteratorMatcher (expect OrderUnpreserved)", () => {
   it("should match the two expected values returned by the iterator", () => {
     function* dummyGen() {

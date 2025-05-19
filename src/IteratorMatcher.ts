@@ -61,7 +61,7 @@ export type IteratorMatcherExecutorOptions = {
 export type IteratorMatcherExecutorResult = {
   isMatching: boolean;
   elapsedSteps: number;
-}
+};
 
 export class IteratorMatcher<T> {
   #expectedValues: IteratorMatcherExpected<T>[] = [];
