@@ -2,14 +2,12 @@
   "name": "iterator-matcher",
   "version": "2.1.0",
   "description": "Easily found out if an ES6 Iterator match what you expected",
-  "main": "./dist/IteratorMatcher.js",
-  "module": "./dist/IteratorMatcher.mjs",
-  "types": "./dist/IteratorMatcher.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/IteratorMatcher.js",
-      "import": "./dist/IteratorMatcher.mjs",
-      "types": "./dist/IteratorMatcher.d.ts"
+      "types": "./dist/IteratorMatcher.d.ts",
+      "require": "./dist/IteratorMatcher.cjs",
+      "import": "./dist/IteratorMatcher.js"
     }
   },
   "scripts": {
@@ -39,6 +37,7 @@
   "homepage": "https://github.com/fraxken/IteratorMatcher#readme",
   "devDependencies": {
     "@openally/config.eslint": "^2.1.0",
+    "@openally/config.typescript": "^1.0.3",
     "@types/node": "^22.2.0",
     "c8": "^10.1.2",
     "eslint": "^9.9.0",

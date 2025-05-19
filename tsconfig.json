@@ -1,21 +1,8 @@
 {
+  "extends": "@openally/config.typescript/esm",
   "compilerOptions": {
-    "declaration": true,
-    "strictNullChecks": true,
-    "target": "ES2022",
     "outDir": "dist",
-    "module": "ES2022",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "resolveJsonModule": false,
-    "skipDefaultLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "rootDir": "./src",
-    "types": [
-      "node"
-    ]
+    "rootDir": "./src"
   },
   "include": [
     "src"
