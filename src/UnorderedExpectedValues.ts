@@ -1,5 +1,5 @@
 // Import Internal Dependencies
-import type { IteratorMatcherExpected } from "./IteratorMatcher.js";
+import type { IteratorMatcherExpected } from "./IteratorMatcher.ts";
 
 export class UnorderedExpectedValues<T> {
   private expectedValues: IteratorMatcherExpected<T>[] = [];

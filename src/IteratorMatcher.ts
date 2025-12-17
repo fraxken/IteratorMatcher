@@ -1,6 +1,6 @@
 // Import Internal Dependencies
-import { UnorderedExpectedValues } from "./UnorderedExpectedValues.js";
-export * from "./EventListener.js";
+import { UnorderedExpectedValues } from "./UnorderedExpectedValues.ts";
+export * from "./EventListener.ts";
 
 export type IteratorMatcherExpected<T> = {
   predicate: (currentIteratedValue: T) => boolean;

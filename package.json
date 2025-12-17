@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsup src/IteratorMatcher.ts --format cjs,esm --dts --clean",
     "prepublishOnly": "npm run build",
-    "test": "tsx --experimental-test-coverage --test test/**/*.spec.ts",
+    "test": "node --experimental-test-coverage --test test/**/*.spec.ts",
     "lint": "eslint src test"
   },
   "repository": {
@@ -36,10 +36,9 @@
   "homepage": "https://github.com/fraxken/IteratorMatcher#readme",
   "devDependencies": {
     "@openally/config.eslint": "^2.1.0",
-    "@openally/config.typescript": "^1.0.3",
+    "@openally/config.typescript": "^1.2.1",
     "@types/node": "^25.0.2",
     "tsup": "^8.2.4",
-    "tsx": "^4.17.0",
     "typescript": "^5.5.4"
   }
 }

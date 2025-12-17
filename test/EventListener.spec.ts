@@ -4,7 +4,7 @@ import assert from "node:assert";
 import { EventEmitter } from "node:events";
 
 // Import Internal Dependencies
-import { EventListener, IteratorMatcher } from "../src/IteratorMatcher.js";
+import { EventListener, IteratorMatcher } from "../src/IteratorMatcher.ts";
 
 describe("EventListener", () => {
   it("should listen and count 3 listeners and register their eventName in call order", () => {
