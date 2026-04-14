@@ -39,6 +39,6 @@
     "@openally/config.typescript": "^1.2.1",
     "@types/node": "^25.0.2",
     "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "typescript": "^6.0.2"
   }
 }
