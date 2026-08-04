@@ -37,8 +37,8 @@
   "devDependencies": {
     "@openally/config.eslint": "^2.1.0",
     "@openally/config.typescript": "^1.2.1",
-    "@types/node": "^25.0.2",
+    "@types/node": "^26.1.2",
     "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "typescript": "^7.0.2"
   }
 }
