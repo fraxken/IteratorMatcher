@@ -35,10 +35,10 @@
   },
   "homepage": "https://github.com/fraxken/IteratorMatcher#readme",
   "devDependencies": {
-    "@openally/config.eslint": "^2.1.0",
+    "@openally/config.eslint": "^3.0.2",
     "@openally/config.typescript": "^1.2.1",
-    "@types/node": "^25.0.2",
-    "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "@types/node": "^26.6.5",
+    "tsup": "^9.0.0",
+    "typescript": "^7.0.2"
   }
 }
